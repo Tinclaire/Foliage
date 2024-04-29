@@ -1,17 +1,20 @@
 import React from 'react';
-import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
-import homeImage from '../../assets/home.png';
-import walletImage from '../../assets/wallet.png';
-import stockImage from '../../assets/stock.png';
+import { Image, StyleSheet, TouchableOpacity, View } from 'react-native';
 import bitcoinImage from '../../assets/bitcoin.png';
+import homeImage from '../../assets/home.png';
+import stockImage from '../../assets/stock.png';
+import walletImage from '../../assets/wallet.png';
 
 // TODO: refactor
-interface NavBarProps {}
+// interface NavBarProps {
 
-const NavBar: React.FC<NavBarProps> = () => {
+// }
+
+// const NavBar: React.FC<NavBarProps> = () => {
+const NavBar = () => {
   return (
     <View style={styles.navbar}>
-      <TouchableOpacity style={styles.barItem}>
+      <TouchableOpacity style={styles.barItem} >
         <Image source={homeImage} style={styles.icon} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.barItem}>

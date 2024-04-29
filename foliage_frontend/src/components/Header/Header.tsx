@@ -1,22 +1,26 @@
+import { NavigationProp } from '@react-navigation/native';
 import React from 'react';
-import {Image, View, TouchableOpacity, StyleSheet, Text} from 'react-native';
-import logoImage from '../../assets/logo.png';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import initImage from '../../assets/init.png';
+import logoImage from '../../assets/logo.png';
 
 interface HeaderProps {
   title: string;
 }
 
-// TODO: Make initButton touchable
-// TODO: Make title as props
-const Header: React.FC<HeaderProps> = () => {
+// TODO: Custom header (back add go...)
+// const Header: React.FC<HeaderProps> = (props) => {
+const Header = ( {title, navigation} : {title: string, navigation: NavigationProp<any>}) => {
   return (
     <View style={styles.header}>
       <Image source={logoImage} style={styles.logo} />
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>資 產 總 覽</Text>
+        {/* title */}
+        <Text style={styles.title}>{title}</Text>
       </View>
-      <Image source={initImage} style={styles.initButton} />
+      <TouchableOpacity onPress={() => {navigation.navigate('BitcoinScreen')}}>
+        <Image source={initImage} style={styles.initButton} />
+      </TouchableOpacity>
     </View>
   );
 };
