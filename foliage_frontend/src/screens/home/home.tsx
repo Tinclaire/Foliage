@@ -8,7 +8,7 @@ import OverviewList from '../../components/List/OverviewList';
 const HomeScreen = ({navigation} : { navigation: NavigationProp<any> }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="資 產 總 覽" navigation={navigation}/>
+      <Header title="資 產 總 覽" navigation={navigation} />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}>

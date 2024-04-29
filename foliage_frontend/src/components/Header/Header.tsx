@@ -9,13 +9,11 @@ interface HeaderProps {
 }
 
 // TODO: Custom header (back add go...)
-// const Header: React.FC<HeaderProps> = (props) => {
 const Header = ( {title, navigation} : {title: string, navigation: NavigationProp<any>}) => {
   return (
     <View style={styles.header}>
       <Image source={logoImage} style={styles.logo} />
       <View style={styles.titleContainer}>
-        {/* title */}
         <Text style={styles.title}>{title}</Text>
       </View>
       <TouchableOpacity onPress={() => {navigation.navigate('BitcoinScreen')}}>
