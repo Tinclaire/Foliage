@@ -28,9 +28,10 @@ const AssetItem = ({name, amount}: {name: string; amount: number}) => {
 const OverviewList = () => {
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>資 產 項 目</Text>
       <View style={styles.headerRow}>
-        <Text style={styles.headerCell}>資產項目</Text>
-        <Text style={styles.headerCell}>資產金額</Text>
+        <Text style={styles.headerCell}>Assets</Text>
+        <Text style={styles.headerCell}>Amount</Text>
       </View>
       {mockData.map((item, index) => (
         <AssetItem key={index} name={item.name} amount={item.amount} />
@@ -44,23 +45,29 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  title: {
+    fontWeight: 'bold',
+    fontSize: 20,
+    color: '#416D19',
+    marginBottom: 10,
+    marginLeft: 5,
+  },
   headerRow: {
     flexDirection: 'row',
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
     borderBottomWidth: 2,
     borderBottomColor: '#FFFFFF',
-    backgroundColor: '#C8E6C9',
+    backgroundColor: '#E3EFCF',
     padding: 10,
   },
   headerCell: {
     flex: 1,
     fontWeight: 'bold',
-    color: '#1B5E20',
   },
   row: {
     flexDirection: 'row',
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#E3EFCF',
     borderBottomWidth: 2,
     borderBottomColor: '#FFFFFF',
     padding: 10,
