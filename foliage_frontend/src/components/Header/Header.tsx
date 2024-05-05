@@ -1,24 +1,18 @@
-import { NavigationProp } from '@react-navigation/native';
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import initImage from '../../assets/init.png';
-import logoImage from '../../assets/logo.png';
+import { StyleSheet, Text, View } from 'react-native';
 
 interface HeaderProps {
   title: string;
 }
 
-// TODO: Custom header (back add go...)
-const Header = ( {title, navigation} : {title: string, navigation: NavigationProp<any>}) => {
+const Header = ( props : {title: string, leading?: JSX.Element, action?: JSX.Element}) => {
   return (
     <View style={styles.header}>
-      <Image source={logoImage} style={styles.logo} />
+      {props.leading}
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.title}>{props.title}</Text>
       </View>
-      <TouchableOpacity onPress={() => {navigation.navigate('BitcoinScreen')}}>
-        <Image source={initImage} style={styles.initButton} />
-      </TouchableOpacity>
+      {props.action}
     </View>
   );
 };
