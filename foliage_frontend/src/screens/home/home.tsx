@@ -10,14 +10,13 @@ import OverviewList from '../../components/List/OverviewList';
 const HomeScreen = ({navigation} : { navigation: NavigationProp<any> }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="資 產 總 覽" leading={<LogoLeading />} action={<InitButton navigation={navigation}/>}/>
+      <Header title="資 產 總 覽" leading={<LogoLeading />} action={<InitButton navigation={navigation} />}/>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}>
         <OverviewChart />
         <OverviewList />
       </ScrollView>
-      {/* <NavBar /> */}
     </SafeAreaView>
   );
 };

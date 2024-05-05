@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Dimensions} from 'react-native';
+import {View, Dimensions, Text, StyleSheet} from 'react-native';
 import {PieChart} from 'react-native-chart-kit';
 
 const mockData = [
@@ -34,6 +34,8 @@ const chartConfig = {
 const OverviewChart = () => {
   return (
     <View>
+      <Text style={styles.total}>總額</Text>
+      <Text style={styles.total}>$480000</Text>
       <PieChart
         data={mockData}
         width={Dimensions.get('window').width}
@@ -49,5 +51,16 @@ const OverviewChart = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  total: {
+    marginRight: 25,
+    alignItems: 'flex-end',
+    textAlign: 'right',
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#416D19',
+  },
+});
 
 export default OverviewChart;

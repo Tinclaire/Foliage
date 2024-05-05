@@ -5,29 +5,17 @@ interface HeaderProps {
   title: string;
 }
 
-// TODO: Custom header (back add go...)
-// const Header: React.FC<HeaderProps> = (props) => {
 const Header = ( props : {title: string, leading?: JSX.Element, action?: JSX.Element}) => {
   return (
     <View style={styles.header}>
       {props.leading}
       <View style={styles.titleContainer}>
-        {/* title */}
         <Text style={styles.title}>{props.title}</Text>
       </View>
       {props.action}
-      {/* <TouchableOpacity onPress={() => {props.navigation.navigate('BitcoinScreen')}}>
-        <Image source={initImage} style={styles.initButton} />
-      </TouchableOpacity> */}
     </View>
   );
 };
-
-const EmptyView = () => {
-  return (
-    <View />
-  )
-}
 
 const styles = StyleSheet.create({
   header: {
