@@ -9,9 +9,10 @@ import initImage from '../assets/init.png';
 import stockImage from '../assets/stock.png';
 import walletImage from '../assets/wallet.png';
 import HomeScreen from '../screens/home/home';
+import InitAccount from '../screens/home/presentation/initAccount';
 import NonePage from '../screens/nonePage';
+import StockTrading from '../screens/stock/presentaion/stockTrading';
 import StockScreen from '../screens/stock/stock';
-import StockTrading from '../screens/stock/view/stockTrading';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -37,7 +38,7 @@ const NavigatorProvider = () => {
             } else if (routeName == 'CashScreen') {
               tabImg = focused ? walletImage : initImage
               label = 'Cash'
-            } else if (routeName == 'StockScreen') {
+            } else if (routeName == 'Stock') {
               tabImg = focused ? stockImage : initImage
               label = 'Stock'
             } else {
@@ -54,21 +55,41 @@ const NavigatorProvider = () => {
           }
         })
         }>
-        <Tab.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-        />
+        <Tab.Screen name="HomeScreen">
+          {() => (
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
+              />
+              <Stack.Screen
+                name='InitAccountScreen'
+                component={InitAccount}
+              />
+            </Stack.Navigator>
+          )}
+        </Tab.Screen>
         <Tab.Screen
           name="CashScreen"
           component={NonePage}
         />
-        <Tab.Screen
-          name="StockScreen"
-          component={StockScreen}
-        />
+        <Tab.Screen name="Stock">
+          {() => (
+            <Stack.Navigator screenOptions={{headerShown: false}}>
+              <Stack.Screen
+                name='StockScreen'
+                component={StockScreen}
+              />
+              <Stack.Screen
+                name='StockTradingScreen'
+                component={StockTrading}
+              />
+            </Stack.Navigator>
+          )}
+        </Tab.Screen>
         <Tab.Screen
           name="BitcoinScreen"
-          component={StockTrading}
+          component={NonePage}
         />
       </Tab.Navigator>
     </NavigationContainer>
