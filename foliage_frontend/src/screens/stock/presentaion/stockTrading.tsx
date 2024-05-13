@@ -6,11 +6,7 @@ import { Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, Toucha
 import Header from '../../../components/Header/Header';
 import BackLeading from '../../../components/Header/backLeading';
 import OkAndNextButton from '../../../components/okAndNextButton';
-
-
-var db = firestore();
-const stockCollection = db.collection('stock');
-const stockDocument = stockCollection.doc('1');
+import db from '../../../firestore/firestore';
 
 const items = [
     { label: "郵局", value: 700 },
@@ -24,13 +20,13 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
     const [stock, setStock] = useState('')
     const [amount, setAmount] = useState(0)
     const [price, setPrice] = useState(0)
-    const [selected, setSelected] = useState()
+    const [selected, setSelected] = useState(null)
 
     const pickerMode = Platform.OS === 'android' ? 'dropdown' : undefined;
     let buyButtonStyle = buyMode ? styles.focusedButton : styles.unfocusedButton
     let sellButtonStyle = sellMode ? styles.focusedButton : styles.unfocusedButton
 
-    async function writeStock () {
+    async function writeStock (button:string) {
       const docNumber = await db.collection('stock').get();
       console.log(docNumber.size)
       const nextId = docNumber.size +1;
@@ -46,10 +42,25 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
         await db.collection('stock').doc(nextId.toString()).set(data)
         .then(() => {console.log('successfully buy stock')})
         .catch(err => console.error(err))
-      }
 
-      // back to stockScreen
-      navigation.goBack();
+        if(button == 'ok'){
+          // back to stockScreen
+          navigation.goBack();
+        }
+        if(button == 'next'){
+          setStock('')
+          setAmount(0)
+          setPrice(0)
+          setSelected(null)
+        }
+      }
+    }
+
+    async function okButton(){
+      await writeStock('ok')
+    }
+    async function nextButton(){
+      await writeStock('next')
     }
 
     return (
@@ -79,13 +90,15 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
                   style={styles.textInput}
                   placeholder='股 數'
                   onChangeText={text => setAmount(parseFloat(text))}
-                  defaultValue={''}
+                  defaultValue=''
+                  value={resetTextInput(amount)}
                 />
                 <TextInput
                   style={styles.textInput}
                   placeholder='均 價'
                   onChangeText={text => setPrice(parseFloat(text))}
-                  defaultValue={''}
+                  defaultValue=''
+                  value={resetTextInput(price)}
                 />
                 <View style={styles.pickerContainer}>
                     <Picker
@@ -106,13 +119,21 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
                 {/* <Text>{selected}</Text> */}
                 <View style={{height: 140}}></View>
                 <View style={styles.submitContainer}>
-                    <OkAndNextButton ok={writeStock} next={writeStock}></OkAndNextButton>
+                    <OkAndNextButton ok={okButton} next={nextButton}></OkAndNextButton>
                 </View>
             </ScrollView>
         </SafeAreaView>
         </>
         
     )
+}
+
+function resetTextInput(num:number){
+  if(num == 0){
+    const defaultValue = '';
+    return defaultValue;
+  }
+  return
 }
 
 const styles = StyleSheet.create({
