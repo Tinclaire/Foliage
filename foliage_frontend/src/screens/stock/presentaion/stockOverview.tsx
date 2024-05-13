@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { Stock } from '../../../types/stock';
 
 const mockData = [
     {
@@ -59,7 +58,8 @@ const StockItem = (props:{
         )
 }
 
-const StockOverview = ({data} : {data: Stock[]}) => {
+const StockOverview = ({data} : {data: any[]}) => {
+    // const StockOverview = ({data} : {data: any[]}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>股 票 總 覽</Text>
@@ -74,8 +74,12 @@ const StockOverview = ({data} : {data: Stock[]}) => {
                 <StockItem key={index} codeName={item.codeName} code={item.code} price={item.price}
                 marketCap={item.marketCap} plPercent={item.plPercent} plNum={item.plNum} />
             ))} */}
-            {data.map((item, index) => (
+            {/* {data.map((item, index) => (
                 <StockItem key={index} codeName={item.codeName} code={item.price} price={item.price}
+                marketCap={item.amount*item.price} plPercent={item.amount} plNum={item.price} />
+            ))} */}
+            {data.map((item, index) => (
+                <StockItem key={index} codeName={item.codeName} code={item.code} price={item.price}
                 marketCap={item.amount*item.price} plPercent={item.amount} plNum={item.price} />
             ))}
         </View>

@@ -1,6 +1,8 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { Dimensions, StyleSheet, View } from 'react-native'
 import GraySquare from '../../../components/GraySquare'
+
+const screenWidth = Dimensions.get('window').width
 
 const ProfitAndLost = () => {
     return (

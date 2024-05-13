@@ -4,42 +4,52 @@ import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'r
 import addImage from '../../assets/add.png';
 import Header from '../../components/Header/Header';
 import LogoLeading from '../../components/Header/logoLeading';
-import db from '../../firestore/firestore';
 import { Stock } from '../../types/stock';
+import combineStockData from './application/combineStockData';
+import readRtStock from './application/readRtStock';
+import readStock from './application/readStock';
 import ProfitAndLost from './presentaion/profitAndLost';
 import StockOverview from './presentaion/stockOverview';
 
 const StockScreen = ( { navigation } : {navigation: NavigationProp<any>}) => {
-    const [stockData, setStockData] = useState([] as Stock[]);
+    const [stockData, setStockData] = useState<any[]>([]);
+    const [ownStockName, setOwnStockName] = useState<string[]>([]);
+    const [rtStockData, setRtStockData] = useState([] as any[]);
+    const [stock, setStock] = useState<Stock[]>([]);
 
     useEffect(() => {
-        const subscriber = db
-        .collection('stock')
-        .onSnapshot(snapshots => {
-            const stocks : Stock[] = [] 
-            if(!snapshots.empty) {
-                snapshots.forEach((snapshot) => {
-                    const data = snapshot.data();
-                    stocks.push(
-                        Stock.parse({
-                            accountId: data.accountId,
-                            amount: data.amount,
-                            codeName: data.codeName,
-                            createdAt: new Date(data.createdAt * 1000,),
-                            price: data.price,
-                        })
-                    )
-                })
-                console.log(stocks);
-                setStockData(stocks); // 回傳stock data
-            } else {
-                console.log('No such collection');
-                setStockData(stocks); // 回傳空的
-            }
-        });
-        // Stop listening for updates when no longer required
-        return () => subscriber();
+        const fetchData = async () => {
+            const subscriber : any = await readStock();
+            await setStockData(subscriber);
+            console.log(stockData);
+
+            let ownStockNames : string[] = [];
+            stockData.forEach(data => {
+                ownStockNames.push(data.codeName);
+            })
+            setOwnStockName(ownStockNames);
+            // Stop listening for updates when no longer required
+            setStock(combineStockData(stockData, rtStockData));
+            return subscriber;
+        }
+
+        fetchData();
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const subscriber : any = await readRtStock(ownStockName)
+            await setRtStockData(subscriber)
+            console.log(rtStockData);
+            // setStock(combineStockData(stockData, rtStockData));
+            return subscriber;
+        }
+        fetchData()
+    }, []);
+
+    // useEffect(() => {
+    //     setStock(combineStockData(stockData, rtStockData));
+    // }, [])
 
     return (
         <SafeAreaView style={styles.container}>
@@ -47,6 +57,9 @@ const StockScreen = ( { navigation } : {navigation: NavigationProp<any>}) => {
             <ScrollView>
                 <ProfitAndLost />
                 <StockOverview data={stockData}/>
+                {/* <StockOverview data={stock}/> */}
+                {/* <Text>希望會成功 {newStock[0]}</Text>
+                <Text>這是{newStock[0]} {newStock[0]}的股價{newStock[0]}</Text> */}
             </ScrollView>
         </SafeAreaView>
     )

@@ -1,25 +1,25 @@
 import React from 'react';
-import {View, Dimensions, Text, StyleSheet} from 'react-native';
-import {PieChart} from 'react-native-chart-kit';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { PieChart } from 'react-native-chart-kit';
 
 const mockData = [
   {
     name: 'Liquidity',
-    population: 40000,
+    amount: 40000,
     color: '#BFEA7C',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   },
   {
     name: 'Investment',
-    population: 30000,
+    amount: 30000,
     color: '#FFF67E',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
   },
   {
     name: 'Crypto',
-    population: 20000,
+    amount: 20000,
     color: '#9BCF53',
     legendFontColor: '#7F7F7F',
     legendFontSize: 15,
@@ -39,14 +39,14 @@ const OverviewChart = () => {
       <PieChart
         data={mockData}
         width={Dimensions.get('window').width}
-        height={300}
+        height={250}
         chartConfig={chartConfig}
-        hasLegend={false}
-        accessor={'population'}
+        // hasLegend={false}
+        accessor={'amount'}
         backgroundColor={'transparent'}
         paddingLeft={'15'}
-        center={[80, 0]}
-        absolute
+        center={[15, -15]}
+        // absolute
       />
     </View>
   );
