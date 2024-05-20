@@ -10,7 +10,11 @@ import OverviewList from '../../components/List/OverviewList';
 const HomeScreen = ({navigation} : { navigation: NavigationProp<any> }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="資 產 總 覽" leading={<LogoLeading />} action={<InitButton navigation={navigation} />}/>
+      <Header
+        title="資 產 總 覽"
+        leading={<LogoLeading />}
+        action={<InitButton navigation={navigation} />}
+      />
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollViewContent}>
@@ -24,10 +28,10 @@ const HomeScreen = ({navigation} : { navigation: NavigationProp<any> }) => {
 const InitButton = ( {navigation} : {navigation: NavigationProp<any>}) => {
   return (
     <TouchableOpacity onPress={() => {navigation.navigate('InitAccountScreen')}}>
-        <Image source={initImage} style={{width: 45, height: 45}} />
+      <Image source={initImage} style={{width: 45, height: 45}} />
     </TouchableOpacity>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
