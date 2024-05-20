@@ -67,4 +67,4 @@ async function readStock() {
     // console.log(stocks)
     // return stocks;
 }
-export default readStock
+export default readStock;
