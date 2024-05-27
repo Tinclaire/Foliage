@@ -39,7 +39,9 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
           price: price,
         }
         console.log(data)
-        await db.collection('stock').doc(nextId.toString()).set(data)
+        // TODO 買了同一支股票
+        // await db.collection('stock').doc(nextId.toString()).set(data)
+        await db.collection('stock').add(data)
         .then(() => {console.log('successfully buy stock')})
         .catch(err => console.error(err))
 
