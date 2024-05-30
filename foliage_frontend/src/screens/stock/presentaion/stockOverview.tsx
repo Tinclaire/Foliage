@@ -28,7 +28,7 @@ const StockItem = (props:{
                     <Text style={styles.cellContent}>成本: {props.cost}</Text>
                 </View>
                 <View style={styles.cell}>
-                    <Text style={{color: plColor}}>{props.plPercent*100} %</Text>
+                    <Text style={{color: plColor}}>{(props.plPercent*100).toFixed(2)} %</Text>
                     <Text style={{color: plColor}}>{props.plNum}</Text>
                 </View>
             </View>
@@ -48,7 +48,7 @@ const StockOverview = ({data} : {data: any[]}) => {
             </View>
             {data.map((item, index) => (
                 <StockItem key={index} codeName={item.codeName} code={item.code} price={item.zPrice}
-                marketCap={(item.capital).toFixed(2)} cost={(item.cost).toFixed(2)} plPercent={(item.plPercent).toFixed(2)} plNum={(item.pl).toFixed(2)} />
+                marketCap={numToFixed(item.capital)} cost={numToFixed(item.cost)} plPercent={numToFixed(item.plPercent)} plNum={numToFixed(item.pl)} />
             ))}
         </View>
     )
@@ -109,5 +109,9 @@ const styles = StyleSheet.create({
         fontSize: 10,
     }
 })
+
+function numToFixed(num: number) : number{
+    return Number(num.toFixed(2))
+}
 
 export default StockOverview

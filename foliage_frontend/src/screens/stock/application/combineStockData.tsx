@@ -41,7 +41,7 @@ export function totalPl(data:Stock[]) : number{
     data.forEach(d => {
         total += d.pl;
     })
-    return total;
+    return Number(total.toFixed(2));
 }
 
 export function totalCapital(data:Stock[]) :number{

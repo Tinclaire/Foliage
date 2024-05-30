@@ -2,11 +2,6 @@ import db from "../../../firestore/firestore";
 
 async function readRtStock(codeName:string[]) {
     let currentStocks : any = [];
-    // let currentStock = {
-    //     codeName: '',
-    //     code: '',
-    //     zPrice: 0,
-    // }
     let currentStock = {};
     return new Promise((resolve, reject) => {
         db.collection('rt_stock').doc('current_stock_data').onSnapshot(

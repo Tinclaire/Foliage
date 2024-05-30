@@ -4,10 +4,13 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import bitcoinImage from '../assets/bitcoin.png';
+import bitcoinGray from '../assets/bitcoin_gray.png';
 import homeImage from '../assets/home.png';
-import initImage from '../assets/init.png';
+import homeGray from '../assets/home_gray.png';
 import stockImage from '../assets/stock.png';
+import stockGray from '../assets/stock_gray.png';
 import walletImage from '../assets/wallet.png';
+import walletGray from '../assets/wallet_gray.png';
 import HomeScreen from '../screens/home/home';
 import InitAccount from '../screens/home/presentation/initAccount';
 import NonePage from '../screens/nonePage';
@@ -33,16 +36,16 @@ const NavigatorProvider = () => {
 
             //TODO change tabbarImg to outlined version (different color)
             if (routeName == 'HomeScreen') {
-              tabImg = focused ? homeImage : initImage
+              tabImg = focused ? homeImage : homeGray
               label = 'Main'
             } else if (routeName == 'CashScreen') {
-              tabImg = focused ? walletImage : initImage
+              tabImg = focused ? walletImage : walletGray
               label = 'Cash'
             } else if (routeName == 'Stock') {
-              tabImg = focused ? stockImage : initImage
+              tabImg = focused ? stockImage : stockGray
               label = 'Stock'
             } else {
-              tabImg = focused ? bitcoinImage : initImage
+              tabImg = focused ? bitcoinImage : bitcoinGray
               label = 'Crypto'
             }
 
