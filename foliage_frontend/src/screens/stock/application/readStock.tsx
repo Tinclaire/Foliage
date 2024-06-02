@@ -37,4 +37,4 @@ async function readStock() {
         );
     })
 }
-export default readStock
+export default readStock;

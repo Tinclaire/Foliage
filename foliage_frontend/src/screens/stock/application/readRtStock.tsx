@@ -23,7 +23,7 @@ async function readRtStock(codeName:string[]) {
                                 console.log(currentStock)
                                 resolve(currentStocks)
                                 return;
-                            }else {
+                            } else {
                                 resolve(currentStocks)
                             }
                         }
@@ -41,4 +41,4 @@ async function readRtStock(codeName:string[]) {
     })
 }
 
-export default readRtStock
+export default readRtStock;
