@@ -1,38 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-const mockData = [
-    {
-        codeName: '台積電',
-        code: 2330,
-        price: 750,
-        marketCap: 30000,
-        plPercent: 0.2345,
-        plNum: 9000,
-    },
-    {
-        codeName: '台積電',
-        code: 2330,
-        price: 750,
-        marketCap: 30000,
-        plPercent: -0.2345,
-        plNum: -9000,
-    },
-    {
-        codeName: '台積電',
-        code: 2330,
-        price: 750,
-        marketCap: 30000,
-        plPercent: 0.2345,
-        plNum: 9000,
-    }
-]
-
-const StockItem = (props:{ 
+const StockItem = (props:{
     codeName: string,
     code: number,
     price: number,
-    marketCap: number, //下面還有一個小數字不知道是啥意思
+    marketCap: number,
+    cost: number,
     plPercent: number,
     plNum: number }) => {
         let plColor;
@@ -49,9 +23,12 @@ const StockItem = (props:{
                     <Text>{props.code}</Text>
                 </View>
                 <Text style={styles.cell}>{props.price}</Text>
-                <Text style={styles.cell}>{props.marketCap}</Text>
                 <View style={styles.cell}>
-                    <Text style={{color: plColor}}>{props.plPercent*100} %</Text>
+                    <Text>{props.marketCap}</Text>
+                    <Text style={styles.cellContent}>成本: {props.cost}</Text>
+                </View>
+                <View style={styles.cell}>
+                    <Text style={{color: plColor}}>{(props.plPercent*100).toFixed(2)} %</Text>
                     <Text style={{color: plColor}}>{props.plNum}</Text>
                 </View>
             </View>
@@ -59,7 +36,6 @@ const StockItem = (props:{
 }
 
 const StockOverview = ({data} : {data: any[]}) => {
-    // const StockOverview = ({data} : {data: any[]}) => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>股 票 總 覽</Text>
@@ -70,17 +46,9 @@ const StockOverview = ({data} : {data: any[]}) => {
                 <Text style={styles.headerCell}>市值</Text>
                 <Text style={styles.headerCell}>損益</Text>
             </View>
-            {/* {mockData.map((item, index) => (
-                <StockItem key={index} codeName={item.codeName} code={item.code} price={item.price}
-                marketCap={item.marketCap} plPercent={item.plPercent} plNum={item.plNum} />
-            ))} */}
-            {/* {data.map((item, index) => (
-                <StockItem key={index} codeName={item.codeName} code={item.price} price={item.price}
-                marketCap={item.amount*item.price} plPercent={item.amount} plNum={item.price} />
-            ))} */}
             {data.map((item, index) => (
-                <StockItem key={index} codeName={item.codeName} code={item.code} price={item.price}
-                marketCap={item.amount*item.price} plPercent={item.amount} plNum={item.price} />
+                <StockItem key={index} codeName={item.codeName} code={item.code} price={item.zPrice}
+                marketCap={numToFixed(item.capital)} cost={numToFixed(item.cost)} plPercent={numToFixed(item.plPercent)} plNum={numToFixed(item.pl)} />
             ))}
         </View>
     )
@@ -136,7 +104,14 @@ const styles = StyleSheet.create({
     cellCode: {
         flex: 1.3,
         color: '#1B5E20',
+    },
+    cellContent: {
+        fontSize: 10,
     }
 })
+
+function numToFixed(num: number) : number{
+    return Number(num.toFixed(2))
+}
 
 export default StockOverview

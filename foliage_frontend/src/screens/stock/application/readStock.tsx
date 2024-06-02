@@ -2,12 +2,12 @@ import db from '../../../firestore/firestore';
 
 async function readStock() {
     console.log('this is readStock function~~')
-    let stocks : any = []
     let stock = {};
     return new Promise((resolve, reject) => {
         db.collection('stock').onSnapshot(
             snapshots => {
                 if(!snapshots.empty) {
+                    const stocks : any = []
                     snapshots.forEach((snapshot) => {
                         const data = snapshot.data();
                         stocks.push(
@@ -18,13 +18,6 @@ async function readStock() {
                                 createdAt: new Date(data.createdAt * 1000,),
                                 price: data.price,
                             }
-                            // Stock.parse({
-                            //     accountId: data.accountId,
-                            //     amount: data.amount,
-                            //     codeName: data.codeName,
-                            //     createdAt: new Date(data.createdAt * 1000,),
-                            //     price: data.price,
-                            // })
                         )
                     })
                     console.log(stocks);
@@ -32,7 +25,7 @@ async function readStock() {
                     return;
                 } else {
                     console.log('No such collection');
-                    resolve(stocks); // 回傳空的
+                    resolve([]); // 回傳空的
                     return;
                 }
             },
@@ -43,28 +36,5 @@ async function readStock() {
             }
         );
     })
-
-    // .then(docs => {
-    //     if(!docs.empty) {
-    //         docs.forEach((doc) => {
-    //             const data = doc.data();
-    //             stocks.push(
-    //                 Stock.parse({
-    //                     accountId: data.accountId,
-    //                     amount: data.amount,
-    //                     codeName: data.codeName,
-    //                     createdAt: new Date(data.createdAt * 1000,),
-    //                     price: data.price,
-    //                 })
-    //             )
-    //         })
-    //     } else {
-    //         console.log('No such collection');
-    //     }
-    // })
-
-
-    // console.log(stocks)
-    // return stocks;
 }
 export default readStock;

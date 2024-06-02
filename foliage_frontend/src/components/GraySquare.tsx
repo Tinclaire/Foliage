@@ -7,7 +7,7 @@ const GraySquare = ( props : { title: string, number: number }) => {
     let numColor;
 
     if(props.title == '投資報酬率') {
-        numResult = `${props.number * 100} %`
+        numResult = `${(props.number * 100).toFixed(2)} %`
     } else {
         numResult = props.number
     }
