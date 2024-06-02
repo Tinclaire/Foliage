@@ -49,7 +49,7 @@ export function totalCapital(data:Stock[]) :number{
     data.forEach(d => {
         total += d.capital;
     })
-    return total;
+    return Number(total.toFixed(2));
 }
 
 export function totalCost(data:Stock[]) :number{
