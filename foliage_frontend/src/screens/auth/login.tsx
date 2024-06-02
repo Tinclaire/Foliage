@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import { NavigationProp } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
-  View,
+  Image,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Image,
+  View,
 } from 'react-native';
-import {login} from './application/login';
+import { login } from './application/login';
 
-const LoginScreen = ({ navigation }) => {
+const LoginScreen = ({ navigation }:{navigation: NavigationProp<any>}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,10 +32,10 @@ const LoginScreen = ({ navigation }) => {
         onChange={(e) => setPassword(e.nativeEvent.text)}
       />
 
-      <TouchableOpacity style={styles.loginButton}>
-        <Text
-          style={styles.loginButtonText}
-          onPress={() => login(email, password)}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => login(email, password)}>
+        <Text style={styles.loginButtonText}>
           登入
         </Text>
       </TouchableOpacity>

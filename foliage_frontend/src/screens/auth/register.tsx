@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import { NavigationProp } from '@react-navigation/native';
+import React, { useState } from 'react';
 import {
-  View,
+  Image,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Image,
+  View,
 } from 'react-native';
-import {register} from './application/register';
+import { register } from './application/register';
 
-const RegisterScreen = ({ navigation }) => {
+const RegisterScreen = ({ navigation } : {navigation: NavigationProp<any>}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,10 +32,10 @@ const RegisterScreen = ({ navigation }) => {
         onChange={(e) => setPassword(e.nativeEvent.text)}
       />
 
-      <TouchableOpacity style={styles.registerButton}>
-        <Text
-          style={styles.registerButtonText}
-          onPress={() => register(email, password)}>
+      <TouchableOpacity
+        style={styles.registerButton}
+        onPress={() => register(email, password)}>
+        <Text style={styles.registerButtonText}>
           註冊
         </Text>
       </TouchableOpacity>
