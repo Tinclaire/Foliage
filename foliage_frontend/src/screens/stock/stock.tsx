@@ -1,6 +1,8 @@
+import auth from '@react-native-firebase/auth';
 import { NavigationProp } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Image, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text } from 'react-native-svg';
 import addImage from '../../assets/add.png';
 import Header from '../../components/Header/Header';
 import LogoLeading from '../../components/Header/logoLeading';
@@ -15,12 +17,27 @@ const StockScreen = ( { navigation } : {navigation: NavigationProp<any>}) => {
     const [ownStockName, setOwnStockName] = useState<string[]>([]);
     const [rtStockData, setRtStockData] = useState([] as any[]);
     const [stock, setStock] = useState<Stock[]>([]);
+    const [uid, setUid] = useState('');
+
+    useEffect(() => {
+        const fetchUser = async() => {
+            await auth().onAuthStateChanged(user => {
+                if(user){
+                    setUid(user.uid);
+                    console.log(`This is user id: ${uid}`);
+                }else {
+                    console.log('user did not login')
+                }
+            })
+        }
+        fetchUser()
+    }, [])
 
     // get user's stock
     useEffect(() => {
         let stock = {};
         const subscriber = db
-        .collection('stock')
+        .collection('stock').where('uid', '==', uid)
         .onSnapshot(snapshots => {
             const stocks : any[] = []
             const ownStockNames : string[] = []; // get 名字
@@ -49,7 +66,7 @@ const StockScreen = ( { navigation } : {navigation: NavigationProp<any>}) => {
         });
         // Stop listening for updates when no longer required
         return () => subscriber();
-    }, []);
+    }, [uid]); // uid 改動後才會 useEffect
 
     // get realtime stock
     useEffect(() => {
@@ -114,6 +131,7 @@ const StockScreen = ( { navigation } : {navigation: NavigationProp<any>}) => {
         <SafeAreaView style={styles.container}>
             <Header title='持 股 列 表' leading={<LogoLeading />} action={<Add navigation={navigation}/>}/>
             <ScrollView>
+                <Text>This is user id</Text>
                 <ProfitAndLost data={stock}/>
                 <StockOverview data={stock}/>
             </ScrollView>

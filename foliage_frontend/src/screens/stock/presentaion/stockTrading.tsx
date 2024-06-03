@@ -1,3 +1,4 @@
+import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { Picker } from '@react-native-picker/picker';
 import { NavigationProp } from '@react-navigation/native';
@@ -27,6 +28,16 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
     let sellButtonStyle = sellMode ? styles.focusedButton : styles.unfocusedButton
 
     async function writeStock (button:string) {
+      let uid = '';
+      await auth().onAuthStateChanged(user => {
+        if(user){
+          uid = user.uid;
+        } else {
+          console.log('user did not login');
+        }
+      })
+      console.log('this is uid:')
+      console.log(uid);
       const docNumber = await db.collection('stock').get();
       console.log(docNumber.size)
       const nextId = docNumber.size +1;
@@ -37,6 +48,7 @@ const StockTrading = ({navigation} : { navigation: NavigationProp<any> }) => {
           codeName: stock,
           createdAt: firestore.Timestamp.now(),
           price: price,
+          uid: uid,
         }
         console.log(data)
         // TODO 買了同一支股票
